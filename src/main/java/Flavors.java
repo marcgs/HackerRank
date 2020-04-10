@@ -12,11 +12,9 @@ public class Flavors {
         int[] scost = Arrays.stream(cost).sorted().toArray();
 
         for (int index1 = 0; index1 < cost.length; index1++) {
-            int costItem1 = cost[index1];
-            int costItem2 = money - costItem1;
-
-            if (Arrays.binarySearch(scost, costItem2) >= 0) {
-                int index2 = indexOf(cost, costItem2, index1);
+            int desiredCost = money - cost[index1];
+            if (Arrays.binarySearch(scost, desiredCost) >= 0) {
+                int index2 = indexOf(cost, desiredCost, index1);
                 if (index2 > 0) {
                     int first = Math.min(index1, index2) + 1;
                     int second = Math.max(index1, index2) + 1;
@@ -28,9 +26,9 @@ public class Flavors {
         return null;
     }
 
-    static int indexOf(int[] input, int element, int indexToSkip) {
-        for (int i = 0; i < input.length; i++) {
-            if (i != indexToSkip && input[i] == element) {
+    static int indexOf(int[] input, int element, int indexToStart) {
+        for (int i = indexToStart + 1; i < input.length; i++) {
+            if (input[i] == element) {
                 return i;
             }
         }
