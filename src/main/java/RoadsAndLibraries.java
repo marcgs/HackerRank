@@ -1,10 +1,5 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
 /**
  * From https://www.hackerrank.com/challenges/torque-and-development/problem
@@ -13,7 +8,41 @@ public class RoadsAndLibraries {
 
     // Complete the roadsAndLibraries function below.
     static long roadsAndLibraries(int n, int c_lib, int c_road, int[][] cities) {
-        return 0;
+        if (c_lib <= c_road) {
+            return c_lib * n;
+        }
+
+        // calculate adjacent matrix
+        boolean[][] adjMatrix = new boolean[n][n];
+        for (int i = 0; i < cities.length; i++) {
+            int first = cities[i][0] - 1;
+            int second = cities[i][1] - 1;
+            adjMatrix[first][second] = true;
+            adjMatrix[second][first] = true;
+        }
+
+        // calculate cost
+        long cost = 0;
+        boolean[] visited = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                int amount = dfs(i, adjMatrix, visited);
+                cost += (long)c_lib + (amount-1) * (long)c_road;
+            }
+        }
+
+        return cost;
+    }
+
+    static int dfs(int index, boolean[][] adjMatrix, boolean[] visited) {
+        int amount = 1;
+        visited[index] = true;
+        for (int i = 0; i < adjMatrix[index].length; i++) {
+            if (!visited[i] && adjMatrix[index][i]) {
+                amount += dfs(i, adjMatrix, visited);
+            }
+        }
+        return amount;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
