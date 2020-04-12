@@ -22,16 +22,16 @@ public class RoadsAndLibraries {
         }
 
         // calculate cost
-        long cost = 0;
+        long connectedComponents = 0;
         boolean[] visited = new boolean[n];
         for (int i = 0; i < n; i++) {
             if (!visited[i]) {
-                int amount = dfs(i, adjMatrix, visited);
-                cost += (long)c_lib + (amount-1) * (long)c_road;
+                dfs(i, adjMatrix, visited);
+                connectedComponents++;
             }
         }
 
-        return cost;
+        return (long) c_road * (n - connectedComponents) + (long) c_lib * connectedComponents;
     }
 
     static int dfs(int index, boolean[][] adjMatrix, boolean[] visited) {
