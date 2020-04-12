@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * From https://www.hackerrank.com/challenges/torque-and-development/problem
@@ -12,13 +14,21 @@ public class RoadsAndLibraries {
             return (long) c_lib * n;
         }
 
-        // calculate adjacent matrix
-        boolean[][] adjMatrix = new boolean[n][n];
+        // calculate adjacent list
+        List<Integer>[] adjList = new List[n];
+        for (int i = 0; i < adjList.length; i++) {
+            adjList[i] = new ArrayList<>();
+        }
+
+        //List<List<Integer>> adjList = IntStream.range(0, cities.length)
+        //       .mapToObj(e -> (List)new ArrayList<Integer>())
+        //        .toArray();
+
         for (int i = 0; i < cities.length; i++) {
             int first = cities[i][0] - 1;
             int second = cities[i][1] - 1;
-            adjMatrix[first][second] = true;
-            adjMatrix[second][first] = true;
+            adjList[first].add(second);
+            adjList[second].add(first);
         }
 
         // calculate cost
@@ -26,7 +36,7 @@ public class RoadsAndLibraries {
         boolean[] visited = new boolean[n];
         for (int i = 0; i < n; i++) {
             if (!visited[i]) {
-                dfs(i, adjMatrix, visited);
+                dfs(i, adjList, visited);
                 connectedComponents++;
             }
         }
@@ -34,12 +44,13 @@ public class RoadsAndLibraries {
         return (long) c_road * (n - connectedComponents) + (long) c_lib * connectedComponents;
     }
 
-    static int dfs(int index, boolean[][] adjMatrix, boolean[] visited) {
+    static int dfs(int index, List<Integer>[] adjList, boolean[] visited) {
         int amount = 1;
         visited[index] = true;
-        for (int i = 0; i < adjMatrix[index].length; i++) {
-            if (!visited[i] && adjMatrix[index][i]) {
-                amount += dfs(i, adjMatrix, visited);
+        for (int i = 0; i < adjList[index].size(); i++) {
+            int childIndex = adjList[index].get(i);
+            if (!visited[childIndex]) {
+                amount += dfs(childIndex, adjList, visited);
             }
         }
         return amount;
