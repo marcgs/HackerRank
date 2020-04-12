@@ -91,6 +91,20 @@ public class RoadsAndLibrariesTest {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @Test
+    public void bigtestcase2() throws FileNotFoundException {
+        TestCaseRunner runner = new TestCaseRunner("roadsAndLibraries-input06.txt");
+        TestOutputReader reader = new TestOutputReader("roadsAndLibraries-output06.txt");
+
+        long[] actual = runner.execute();
+        long[] expected = reader.readOutput();
+
+        System.out.println(Arrays.toString(actual));
+        System.out.println(Arrays.toString(expected));
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
     public static class TestCaseRunner {
         private final Scanner scanner;
 
