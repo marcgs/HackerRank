@@ -77,8 +77,6 @@ public class RoadsAndLibrariesTest {
         assertThat(cost).isEqualTo(27);
     }
 
-
-
     @Test
     public void bigtestcase1() throws FileNotFoundException {
         TestCaseRunner runner = new TestCaseRunner("roadsAndLibraries-input03.txt");

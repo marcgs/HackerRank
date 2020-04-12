@@ -9,7 +9,7 @@ public class RoadsAndLibraries {
     // Complete the roadsAndLibraries function below.
     static long roadsAndLibraries(int n, int c_lib, int c_road, int[][] cities) {
         if (c_lib <= c_road) {
-            return c_lib * n;
+            return (long) c_lib * n;
         }
 
         // calculate adjacent matrix
