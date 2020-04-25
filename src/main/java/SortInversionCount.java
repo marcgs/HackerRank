@@ -34,5 +34,48 @@ public class SortInversionCount {
 
     }
 
+
+    public static class ByMergeSort {
+        // Complete the countInversions function below.
+        static long countInversions(int[] arr) {
+            long inversions = 0;
+            return mergeSort(arr, 0, arr.length);
+        }
+
+        static long mergeSort(int[] arr, int start, int end) {
+            if (end - start < 2) {
+                return 0;
+            }
+
+            int mid = (start + end)/2;
+            long leftInversions = mergeSort(arr, start, mid);
+            long rightInversions = mergeSort(arr, mid, end);
+
+            int[] left = Arrays.copyOfRange(arr, start, mid);
+            int[] right = Arrays.copyOfRange(arr, mid, end);
+
+            long mergeInversions = 0;
+            int k = start, i = 0, j = 0;
+            while (i < left.length && j < right.length) {
+                if (left[i] <= right[j]) {
+                    arr[k++] = left[i++];
+                } else {
+                    mergeInversions += left.length - i;
+                    arr[k++] = right[j++];
+                }
+            }
+
+            while (i < left.length) {
+                arr[k++] = left[i++];
+            }
+
+            while (j < right.length) {
+                arr[k++] = right[j++];
+            }
+
+            return leftInversions + rightInversions + mergeInversions;
+        }
+    }
+
 }
 
