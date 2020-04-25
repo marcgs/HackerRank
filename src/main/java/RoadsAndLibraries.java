@@ -15,14 +15,10 @@ public class RoadsAndLibraries {
         }
 
         // calculate adjacent list
-        List<Integer>[] adjList = new List[n];
-        for (int i = 0; i < adjList.length; i++) {
-            adjList[i] = new ArrayList<>();
-        }
-
-        //List<List<Integer>> adjList = IntStream.range(0, cities.length)
-        //       .mapToObj(e -> (List)new ArrayList<Integer>())
-        //        .toArray();
+        List<Integer>[] adjList = IntStream.range(0, n)
+                .mapToObj(e -> (List) new ArrayList<Integer>())
+                .collect(Collectors.toList())
+                .toArray(new List[n]);
 
         for (int i = 0; i < cities.length; i++) {
             int first = cities[i][0] - 1;
