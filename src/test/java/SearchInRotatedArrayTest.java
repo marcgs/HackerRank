@@ -7,7 +7,7 @@ public class SearchInRotatedArrayTest {
     @Test
     public void find_offset_case_1() {
         int result = SearchInRotatedArray.findOffset(new int[]{1, 2, 3, 4, 5}, 0, 5);
-        assertThat(result).isEqualTo(0);
+        assertThat(result).isEqualTo(5);
     }
 
     @Test
@@ -44,6 +44,12 @@ public class SearchInRotatedArrayTest {
     public void search_case_10_elements() {
         int result = SearchInRotatedArray.search(new int[]{5, 7, 10, 33, 45, 55, 123, 1, 3, 4}, 55);
         assertThat(result).isEqualTo(5);
+    }
+
+    @Test
+    public void search_case_10_elements_sorted() {
+        int result = SearchInRotatedArray.search(new int[]{1, 3, 4, 5, 7, 10, 33, 45, 55, 123}, 55);
+        assertThat(result).isEqualTo(8);
     }
 
     @Test
