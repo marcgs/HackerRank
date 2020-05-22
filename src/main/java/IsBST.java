@@ -10,26 +10,18 @@ public class IsBST {
         }
     }
 
-    boolean checkBST(Node node) {
-        if (!checkNode(node)) {
-            return false;
-        }
-        if (node.left != null && !checkBST(node.left)) {
-            return false;
-        }
-        if (node.right != null && !checkBST(node.right)) {
-            return false;
-        }
-        return true;
+    boolean checkBST(Node root) {
+        return check(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
-    boolean checkNode(Node node) {
-        if (node.left != null && node.left.data >= node.data) {
+    boolean check(Node node, int min, int max) {
+        if (node == null) {
+            return true;
+        }
+        if (node.data <= min || node.data >= max) {
             return false;
         }
-        if (node.right != null && node.right.data <= node.data) {
-            return false;
-        }
-        return true;
+        return check(node.left, min, node.data) &&
+               check(node.right, node.data, max);
     }
 }
